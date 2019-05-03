@@ -1,0 +1,94 @@
+---
+title: "introduction"
+author: "Michael Ling"
+date: "2019.04.30"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to binomial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r echo = FALSE, message = FALSE}
+knitr::opts_chunk$set(collapse = T, comment = "#>")
+library(binomial)
+```
+
+## Binomial Calculations
+
+The package `"binomial"` is a collection of useful choose calculation functions, and binomial calculation (e.g. mean, variance) functions.
+
+
+## Creating a binvar object
+
+You can also create a `binvar` object to easily check the properties of a binomal distribution with the function `bin_variable`:
+
+```{r}
+mybinvar <- bin_variable(trials = 10, prob = 0.5)
+mybinvar
+```
+
+The method `print()` is overwritten to support binvar variables, and the properties of the binomial distribution is nicely formatted for you.
+
+
+## Summary a binvar object
+
+After you create a `binvar` object, you can check its properties (e.g. mean, mode, skewness) by calling the `summary()` function. This method has been overwritten to handle binvar objects. 
+```{r}
+mybinvar <- bin_variable(trials = 10, prob = 0.5)
+summary_binvar <- summary(mybinvar)
+summary_binvar
+```
+
+
+## Choose calculation functions
+
+Functions `bin_choose()`, `bin_distribution()` and `bin_cumulative()` can be used to calculate the probability of n choose k. For example, function `bin_choose()` can be used to calculate 5 choose 3:
+
+```{r}
+bin_choose(n = 5, k = 3)
+```
+
+Function `bin_distribution()` enumerates all the possible situations for you and calculates their distribution, displayed in a list. For example, the outcome of tossing a fair coin 10 times (with equal probability of getting heads and tails) would have the following distribution:
+
+```{r}
+bin_distribution(trials = 10, prob = 0.5)
+```
+
+And if you want to check the cumulative probability, call the function `bin_cumulative()` with the exact same parameters:
+
+```{r}
+bin_cumulative(trials = 10, prob = 0.5)
+```
+
+The plot function overwritten to handle a bin dis or bincum object, and you can call it on the result of bin_distribution or bin_cumulative to plot them.
+```{r}
+bin_dis <- bin_distribution(trials = 5, prob = 0.5)
+plot(bin_dis)
+```
+
+```{r}
+bin_cum <- bin_cumulative(trials = 5, prob = 0.5)
+plot(bin_cum)
+```
+
+
+## Binomial calculation functions
+
+There are quite a few binomial calculation functions at your disposal (e.g. `bin_mean()`, `bin_variance()`, `bin_mode()`, `bin_skewness()`, `bin_kurtosis()`). You can call these functions by passing in the number of trials and the success probability as parameters.  
+
+For example, if you want to calculate the expect outcome of tossing a fair coin for 10 times (with 50 percent chance landing heads up and 50 percent chance landng tails up), simply call the function `bin_mean()` with parameters `trial` and `prob`:
+
+```{r}
+bin_mean(trials = 10, prob = 0.5)
+```
+
+Let's look at another example, if you want to calculate the skewness of the 10 trials mentioned above, call the function `bin_skewness()` with parameters `trial` and `prob`:
+
+```{r}
+bin_skewness(trials = 10, prob = 0.5)
+```
+
+
+
+
